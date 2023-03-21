@@ -1,6 +1,20 @@
 def stock_picker(prices)
-  prices_hash = Hash.new(0)                                       #Create hash
-  prices.each_index {|index| prices_hash[index] = prices[index]}  #Stores the prices with day number as key and stock price as value
-  
+  buy = 0
+  sell = 0
+  profit = 0
+  prices.each_with_index do |buy_price, buy_day|
+    prices.each_with_index do |sell_price, sell_day|
+      if sell_day > buy_day
+        if sell_price - buy_price > profit
+          profit = sell_price - buy_price
+          buy = buy_day
+          sell = sell_day
+        end
+      end
+    end
+  end
+  result = [buy, sell]
+  p result
 end
+    
 stock_picker([17,3,6,9,15,8,6,1,10])
